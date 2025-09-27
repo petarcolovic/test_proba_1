@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Psihološki test – istorijska ličnost</title>
+  <title>The 4C Culture Compass™ by Recrewty</title>
   <style>
     :root{--bg:#0b1020;--card:#121a36;--muted:#98a2b3;--text:#e6e9f2;--accent:#6ea8fe;}
     *{box-sizing:border-box}
     body{margin:0;background:linear-gradient(180deg,#0b1020,#0e1630);color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;line-height:1.5; }
     .wrap{max-width:900px;margin:auto;padding:24px}
     header{display:flex;align-items:center;justify-content:space-between;margin:8px 0 24px}
-    h1{font-size:28px;margin:0}
+    h1{font-size:24px;margin:0}
     .card{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.25);}
     .intro{padding:16px 20px;margin-bottom:16px}
     .q{padding:16px 20px;border-top:1px solid rgba(255,255,255,.06);}
@@ -32,13 +32,13 @@
     table{width:100%;border-collapse:collapse;margin-top:8px}
     th,td{text-align:left;padding:8px;border-bottom:1px solid rgba(255,255,255,.06)}
     .small{font-size:12px}
+    .dim-desc{margin:8px 0 16px;font-size:13px;line-height:1.4}
   </style>
 </head>
 <body>
   <div class="wrap">
     <header>
-      <h1>Psihološki test</h1>
-      <span class="muted small">Likert 1–5 • Norme po skalama • Poređenje sa ličnostima</span>
+      <h1>The 4C Culture Compass™ by Recrewty</h1>
     </header>
 
     <div class="grid">
@@ -56,19 +56,18 @@
       <section id="output" class="card" aria-live="polite">
         <div class="result">
           <h2>Rezultat</h2>
-          <p class="muted small">Nakon slanja testa, ovde će biti prikazani tvoji originalni i normirani skorovi, kao i najbliža istorijska ličnost.</p>
+          <p class="muted small">Nakon slanja testa, ovde će biti prikazani tvoji skorovi, sa objašnjenjima dimenzija i najbližom istorijskom ličnošću.</p>
         </div>
       </section>
     </div>
   </div>
 
   <script>
-    // --- Embedded data (from your Excel) ---
     const ITEMS = [{"id": 1, "text": "Potrebna su mi precizna uputstva kako bih tačno znao šta se od mene očekuje                                         ", "dim": "C1"}, {"id": 2, "text": "Pojedinac treba da stavi interes grupe ispred svog                                                                  ", "dim": "C3"}, {"id": 3, "text": "Smatram da je pažljivo upravljanje novcem veoma važno                                                               ", "dim": "C4"}, {"id": 4, "text": "Moj primarni cilj u donošenju odluka je da postignem najbolje rezultate  čak i ako to znači da zasenim ideje drugih ", "dim": "C2"}, {"id": 5, "text": "Nije poželjno da rukovodioci često traže mišljenje zaposlenih na nižim pozicijama                                   ", "dim": "C2"}, {"id": 6, "text": "Pridržavanje pravila i procedura je ključno za dobar rad                                                            ", "dim": "C1"}, {"id": 7, "text": "Čak i u teškim vremenima  ljudi bi trebalo da ostanu lojalni svojoj grupi                                           ", "dim": "C3"}, {"id": 8, "text": "Za mene je važno da istrajem i kada se suočavam sa otporom                                                          ", "dim": "C4"}, {"id": 9, "text": "Kako se ljudi osjećaju u procesu donošenja odluka nije važan faktor                                                 ", "dim": "C2"}, {"id": 10, "text": "Pravila i propisi mi pomažu da znam šta se od mene očekuje                                                          ", "dim": "C1"}, {"id": 11, "text": "Važnije je da grupa napreduje nego da se ističu pojedinci                                                           ", "dim": "C3"}, {"id": 12, "text": "Nije mi bitan uticaj odluka na osjećanja i odnose ljudi                                                             ", "dim": "C2"}, {"id": 13, "text": "Standardizovane procedure olakšavaju obavljanje posla                                                               ", "dim": "C1"}, {"id": 14, "text": "Bolje je kada uspije tim nego pojedinac                                                                             ", "dim": "C3"}, {"id": 15, "text": "Dugoročno planiranje mi je izuzetno značajno                                                                        ", "dim": "C4"}, {"id": 16, "text": "Zadovoljniji sam kada moje odluke dovedu do boljih rezultata od rezultata mojih kolega                              ", "dim": "C2"}, {"id": 17, "text": "Važne zadatke ne bi trebalo delegirati zaposlenima na nižim pozicijama                                              ", "dim": "C2"}, {"id": 18, "text": "Jasne procedure su ključne za uspješnu realizaciju zadataka                                                         ", "dim": "C1"}, {"id": 19, "text": "Prije nego što se posveti svojim ciljevima  pojedinac bi trebalo da razmisli o tome kako oni utiču na grupu         ", "dim": "C3"}, {"id": 20, "text": "Spreman sam da se odreknem zabave danas zarad budućeg uspjeha                                                       ", "dim": "C4"}, {"id": 21, "text": "Lojalnost prema grupi treba podsticati  čak i kada se kosi s ličnim ciljevima                                       ", "dim": "C3"}, {"id": 22, "text": "Naporan rad zarad uspjeha u budućnosti  za mene je važan                                                            ", "dim": "C4"}];
     const NORMS = {"C1": {"5": 0.0, "6": 0.0, "7": 0.0, "8": 0.0, "9": 0.0, "10": 6.520723544399269, "11": 15.13698374285922, "12": 22.77921674919608, "13": 28.0885369285841, "14": 32.42048393045673, "15": 37.28490533241466, "16": 42.95417189705258, "17": 47.90274213347555, "18": 52.62011311538172, "19": 57.94885042292888, "20": 63.58622234266424, "21": 69.63874229853081, "22": 75.42545102329012, "23": 81.4767938656201, "24": 88.19958030249376, "25": 100.0}, "C2": {"6": 0.0, "7": 8.000704098685949, "8": 15.2888536041387, "9": 21.33680960447523, "10": 26.07540534036021, "11": 30.29035317157859, "12": 34.83563823299427, "13": 40.04391583492738, "14": 44.69152507982457, "15": 48.58608581707873, "16": 52.57750045543178, "17": 56.48247522079518, "18": 60.06251448332315, "19": 63.89191273387608, "20": 67.59528847966027, "21": 71.42857142857143, "22": 76.19047619047619, "23": 80.95238095238095, "24": 85.71428571428572, "25": 90.47619047619048, "26": 95.23809523809524, "27": 100.0, "28": 100.0, "29": 100.0, "30": 100.0}, "C3": {"6": 0.0, "7": 5.714537118960193, "8": 14.52653668726173, "9": 20.85961304571558, "10": 25.00225766012873, "11": 27.8356260484174, "12": 30.94922715177008, "13": 33.84308506161179, "14": 36.57778851405745, "15": 40.19013002681073, "16": 44.07572601771861, "17": 48.11948362836824, "18": 52.75639437003009, "19": 56.56028771984553, "20": 59.10036757159533, "21": 62.30395658795592, "22": 66.2909909523823, "23": 69.6620749828591, "24": 73.04413279088406, "25": 76.26835174013918, "26": 79.50741759027524, "27": 83.35988138916036, "28": 87.13842507845501, "29": 91.85249052560833, "30": 100.0}, "C4": {"5": 0.0, "6": 0.0, "7": 0.0, "8": 0.0, "9": 0.0, "10": 0.0, "11": 0.0, "12": 8.69206654482118, "13": 17.11279599732478, "14": 24.20027116580127, "15": 30.3046936486103, "16": 36.38265938445812, "17": 42.55135948786221, "18": 48.85995507136091, "19": 55.27024636326704, "20": 61.78339534546755, "21": 68.37696389785044, "22": 74.80047950315051, "23": 81.34042302389727, "24": 88.72142921702103, "25": 100.0}};
     const FIGURES = [{"name": "Queen Victoria", "profile": {"C1": 70.0, "C2": 0.0, "C3": 0.0, "C4": 0.0}, "description": "Kraljica Engleske", "wiki": "https://sh.wikipedia.org/wiki/Viktorija"}, {"name": "Napoleon", "profile": {"C1": 0.0, "C2": 70.0, "C3": 0.0, "C4": 0.0}, "description": "Francuski imperator", "wiki": "https://sh.wikipedia.org/wiki/Napoleon_I_Bonaparte"}, {"name": "Marie Therese", "profile": {"C1": 0.0, "C2": 0.0, "C3": 70.0, "C4": 0.0}, "description": "Austrijska carica", "wiki": "https://sh.wikipedia.org/wiki/Maria_Theresia"}, {"name": "Franklin Roosevelt", "profile": {"C1": 0.0, "C2": 0.0, "C3": 0.0, "C4": 70.0}, "description": "Američki predsednik", "wiki": "https://sh.wikipedia.org/wiki/Franklin_Delano_Roosevelt"}, {"name": "Winston Churchill", "profile": {"C1": 20.0, "C2": 0.0, "C3": 0.0, "C4": 0.0}, "description": "Premijer Velike Britanije", "wiki": "https://sh.wikipedia.org/wiki/Winston_Churchill"}, {"name": "Pericles", "profile": {"C1": 0.0, "C2": 20.0, "C3": 0.0, "C4": 0.0}, "description": "Atinski državnik", "wiki": "https://sh.wikipedia.org/wiki/Perikle"}, {"name": "John Kennedy", "profile": {"C1": 0.0, "C2": 0.0, "C3": 20.0, "C4": 0.0}, "description": "Američki predsednik", "wiki": "https://sh.wikipedia.org/wiki/John_F._Kennedy"}, {"name": "James 2", "profile": {"C1": 0.0, "C2": 0.0, "C3": 0.0, "C4": 20.0}, "description": "Kralj Engleske i Škotske", "wiki": "https://sh.wikipedia.org/wiki/James_II_od_Engleske"}];
+    const DIMS_INFO = {"C1": {"name": "Clarity & Complliance vs Agility", "high": "Structured Culture - Emphasizes rules, consistency, SOPs. Predictable, process-driven, ideal for scaling operations.", "low": "Agile Culture - Values flexibility, improvisation, and informal processes. Good for startups, creative teams, or fast pivots."}, "C2": {"name": "Competitive Achievement", "high": "Performance-Driven Culture - Values competition, ambition, and personal wins. Ideal for sales, finance, high-stakes roles.", "low": "Empathetic Culture - Focused on emotional intelligence, harmony, and consensus. Ideal for care-based sectors or internal-facing roles."}, "C3": {"name": "Collective Loyalty", "high": "Team-First Culture - Prioritizes group harmony, shared credit, and loyalty. Strong cohesion and retention.", "low": "Individualist Culture - Encourages autonomy, self-expression, and personal goals. Energizing but can reduce cohesion."}, "C4": {"name": "Commitment to Growth", "high": "Growth-Oriented Culture - Values planning, long-term thinking, perseverance, and saving resources for the future.", "low": "Present-Oriented Culture - Optimized for short-term gains, flexibility, and immediate feedback loops. Can be highly reactive."}};
 
-    // Render pitanja
     const qWrap = document.getElementById('questions');
     function renderQuestions(){
       qWrap.innerHTML = '';
@@ -83,34 +82,28 @@
                 <input type="radio" name="q_${q.id}" value="${v}" required /> ${v}
               </label>`).join('')}
           </div>
-          <div class="small muted">Skala: 1 = nimalo • 5 = u potpunosti &nbsp; <span class="pill">${q.dim}</span>
-          </div>
+          <div class="small muted">Skala: 1 = nimalo • 5 = u potpunosti</div>
         `;
         qWrap.appendChild(div);
       });
     }
     renderQuestions();
 
-    // Helper: sumiranje po dimenziji
     function computeRawScores(form){
       const sums = {};
       ITEMS.forEach(q => { sums[q.dim] = (sums[q.dim]||0) + Number(form.get(`q_${q.id}`)||0); });
       return sums;
     }
 
-    // Helper: lookup sa „najbližim ključem“ (ako nema tačnog raw u normama)
     function normLookup(dim, raw){
       const table = NORMS[dim];
       if(!table) return null;
       let exact = table[String(raw)];
       if(exact !== undefined) return exact;
-      // nearest key fallback
       const keys = Object.keys(table).map(k=>Number(k)).sort((a,b)=>a-b);
       if(keys.length===0) return null;
-      // clamp
       if(raw <= keys[0]) return table[String(keys[0])];
       if(raw >= keys[keys.length-1]) return table[String(keys[keys.length-1])];
-      // interpolate linearly between nearest neighbors
       let i=0;
       while(i<keys.length && keys[i] < raw) i++;
       const k2 = keys[i];
@@ -121,7 +114,6 @@
       return v1 + t*(v2 - v1);
     }
 
-    // Distance (Euclidean) između korisnikovog normiranog profila i profila ličnosti
     function distance(user, fig){
       const dims = ['C1','C2','C3','C4'];
       let s = 0;
@@ -129,44 +121,32 @@
       return Math.sqrt(s);
     }
 
-    // Izračunaj i prikaži rezultat
     const form = document.getElementById('quiz');
     const out = document.getElementById('output');
     form.addEventListener('submit', (e)=>{
       e.preventDefault();
       const data = new FormData(form);
-      // 1) raw po dimenzijama
       const raw = computeRawScores(data);
-      // 2) normirani po dimenzijama
       const dims = ['C1','C2','C3','C4'];
       const normed = {}
-      dims.forEach(d=> normed[d] = Number(normLookup(d, raw[d]||0).toFixed(5)) );
+      dims.forEach(d=> normed[d] = Number(normLookup(d, raw[d]||0).toFixed(2)) );
 
-      // 3) pronalazak najbliže ličnosti
       let best = null, bestDist = Infinity;
       FIGURES.forEach(f => { 
         const dist = distance(normed, f.profile);
         if(dist < bestDist){ bestDist = dist; best = f; }
       });
 
-      // 4) render rezultata
       out.innerHTML = `
         <div class="result">
           <h2>Rezultat</h2>
-          <div>
-            <span class="pill">Originalni skorovi</span>
-            <table>
-              <tr><th>Dimenzija</th><th>Skor</th></tr>
-              ${dims.map(d=>`<tr><td>${d}</td><td>${raw[d]||0}</td></tr>`).join('')}
-            </table>
-          </div>
-          <div style="margin-top:14px">
-            <span class="pill">Normirani skorovi</span>
-            <table>
-              <tr><th>Dimenzija</th><th>Skor (0–100)</th></tr>
-              ${dims.map(d=>`<tr><td>${d}</td><td>${(normed[d]??'').toString()}</td></tr>`).join('')}
-            </table>
-          </div>
+          ${dims.map(d => `
+            <div class="dim-desc">
+              <strong>${d} - ${DIMS_INFO[d].name}</strong>: ${normed[d]}
+              <div><em>Visok skor:</em> ${DIMS_INFO[d].high}</div>
+              <div><em>Nizak skor:</em> ${DIMS_INFO[d].low}</div>
+            </div>
+          `).join('')}
         </div>
         ${best ? `
         <div class="best-card">
@@ -180,7 +160,7 @@
 
     document.getElementById('resetBtn').addEventListener('click', ()=>{
       form.reset();
-      out.innerHTML = '<div class="result"><h2>Rezultat</h2><p class="muted small">Nakon slanja testa, ovde će biti prikazani tvoji originalni i normirani skorovi, kao i najbliža istorijska ličnost.</p></div>';
+      out.innerHTML = '<div class="result"><h2>Rezultat</h2><p class="muted small">Nakon slanja testa, ovde će biti prikazani tvoji skorovi, sa objašnjenjima dimenzija i najbližom istorijskom ličnošću.</p></div>';
       window.scrollTo({top:0,behavior:'smooth'});
     });
   </script>
