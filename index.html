@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="sr">
 <head>
@@ -5,39 +6,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>The 4C Culture Compass™ by Recrewty</title>
   <style>
-    :root{--bg:#0b1020;--card:#121a36;--muted:#98a2b3;--text:#e6e9f2;--accent:#6ea8fe;}
+    :root{
+      --bg:#ffffff;--card:#f8f9fa;--muted:#6c757d;--text:#333333;
+      --accent:#38B000;--accent2:#FFD100;--footer:#e9ecef;
+    }
     *{box-sizing:border-box}
-    body{margin:0;background:linear-gradient(180deg,#0b1020,#0e1630);color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;line-height:1.5;}
-    .wrap{max-width:1000px;margin:auto;padding:24px}
-    header{display:flex;align-items:center;justify-content:space-between;margin:8px 0 24px}
-    h1{font-size:24px;margin:0}
-    .card{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.25);}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;line-height:1.5;display:flex;flex-direction:column;min-height:100vh;}
+    .wrap{flex:1;max-width:1000px;margin:auto;padding:24px}
+    header{display:flex;align-items:center;gap:12px;margin:8px 0 24px}
+    header img{height:40px;background:#f1f1f1;padding:4px;border-radius:8px}
+    header h1{font-size:24px;margin:0;color:var(--accent)}
+    .card{background:var(--card);border:1px solid rgba(0,0,0,.06);border-radius:16px;box-shadow:0 4px 12px rgba(0,0,0,.08);}
     .intro{padding:16px 20px;margin-bottom:16px}
-    .q{padding:16px 20px;border-top:1px solid rgba(255,255,255,.06);}
+    .q{padding:16px 20px;border-top:1px solid rgba(0,0,0,.06);}
     .q:first-child{border-top:none}
     .q h3{font-size:16px;margin:0 0 12px}
     .scale{display:flex;gap:10px;flex-wrap:wrap}
-    .scale label{display:flex;align-items:center;gap:8px;background:#0f1733;border:1px solid rgba(255,255,255,.06);padding:8px 10px;border-radius:12px;cursor:pointer}
+    .scale label{display:flex;align-items:center;gap:8px;background:white;border:1px solid rgba(0,0,0,.06);padding:8px 10px;border-radius:12px;cursor:pointer}
     .scale input{accent-color:var(--accent)}
-    .actions{display:flex;gap:12px;justify-content:flex-end;padding:14px 20px;border-top:1px solid rgba(255,255,255,.06)}
-    button{background:var(--accent);border:none;color:#05122e;padding:10px 16px;border-radius:12px;font-weight:600;cursor:pointer}
+    .actions{display:flex;gap:12px;justify-content:flex-end;padding:14px 20px;border-top:1px solid rgba(0,0,0,.06)}
+    button{background:var(--accent);border:none;color:white;padding:10px 16px;border-radius:12px;font-weight:600;cursor:pointer}
+    button:hover{background:#2e8c00}
     .muted{color:var(--muted)}
     .grid{display:grid;grid-template-columns:1fr;gap:16px}
     @media (min-width: 980px){ .grid{grid-template-columns:1.2fr .8fr} }
     .result{padding:16px 20px;text-align:center}
-    .best-card{padding:16px 20px;border-top:1px solid rgba(255,255,255,.06);text-align:left}
-    .best-card h2{margin:0 0 6px}
-    a{color:#a7c7ff}
+    .best-card{padding:16px 20px;border-top:1px solid rgba(0,0,0,.06);text-align:left}
+    .best-card h2{margin:0 0 6px;color:var(--accent)}
+    a{color:var(--accent)}
     .small{font-size:12px}
     .dim-desc{margin:8px 0 16px;font-size:13px;line-height:1.4;text-align:left}
-    canvas{max-width:100%;height:auto;margin-top:20px;border:1px solid #444;}
+    canvas{max-width:100%;height:auto;margin-top:20px;border:1px solid #ddd;}
     .legend{margin-top:10px;font-size:13px}
-    .legend span{margin:0 10px}
+    .legend span{margin:0 10px;font-weight:600}
+    footer{background:var(--footer);padding:8px 16px;display:flex;align-items:center;gap:8px;position:sticky;bottom:0;left:0;right:0;}
+    footer img{height:20px;background:#f1f1f1;padding:2px;border-radius:4px}
+    footer a{text-decoration:none;color:var(--text);font-size:14px}
   </style>
 </head>
 <body>
   <div class="wrap">
     <header>
+      <img src="recrewty-logo-white.webp" alt="Recrewty logo"/>
       <h1>The 4C Culture Compass™ by Recrewty</h1>
     </header>
 
@@ -49,7 +59,7 @@
         <div id="questions"></div>
         <div class="actions">
           <button type="submit">Pošalji</button>
-          <button type="button" id="resetBtn" class="muted" style="background:transparent;color:var(--text);border:1px solid rgba(255,255,255,.12)">Poništi</button>
+          <button type="button" id="resetBtn" class="muted" style="background:transparent;color:var(--text);border:1px solid rgba(0,0,0,.12)">Poništi</button>
         </div>
       </form>
 
@@ -64,12 +74,17 @@
       </section>
     </div>
   </div>
+  <footer>
+    <a href="https://recrewty.com" target="_blank" rel="noopener">
+      <img src="recrewty-logo-white.webp" alt="Recrewty logo"/> The 4C Culture Compass™ by Recrewty
+    </a>
+  </footer>
 
   <script>
     const ITEMS = [{"id": 1, "text": "Potrebna su mi precizna uputstva kako bih tačno znao šta se od mene očekuje                                         ", "dim": "C1"}, {"id": 2, "text": "Pojedinac treba da stavi interes grupe ispred svog                                                                  ", "dim": "C3"}, {"id": 3, "text": "Smatram da je pažljivo upravljanje novcem veoma važno                                                               ", "dim": "C4"}, {"id": 4, "text": "Moj primarni cilj u donošenju odluka je da postignem najbolje rezultate  čak i ako to znači da zasenim ideje drugih ", "dim": "C2"}, {"id": 5, "text": "Nije poželjno da rukovodioci često traže mišljenje zaposlenih na nižim pozicijama                                   ", "dim": "C2"}, {"id": 6, "text": "Pridržavanje pravila i procedura je ključno za dobar rad                                                            ", "dim": "C1"}, {"id": 7, "text": "Čak i u teškim vremenima  ljudi bi trebalo da ostanu lojalni svojoj grupi                                           ", "dim": "C3"}, {"id": 8, "text": "Za mene je važno da istrajem i kada se suočavam sa otporom                                                          ", "dim": "C4"}, {"id": 9, "text": "Kako se ljudi osjećaju u procesu donošenja odluka nije važan faktor                                                 ", "dim": "C2"}, {"id": 10, "text": "Pravila i propisi mi pomažu da znam šta se od mene očekuje                                                          ", "dim": "C1"}, {"id": 11, "text": "Važnije je da grupa napreduje nego da se ističu pojedinci                                                           ", "dim": "C3"}, {"id": 12, "text": "Nije mi bitan uticaj odluka na osjećanja i odnose ljudi                                                             ", "dim": "C2"}, {"id": 13, "text": "Standardizovane procedure olakšavaju obavljanje posla                                                               ", "dim": "C1"}, {"id": 14, "text": "Bolje je kada uspije tim nego pojedinac                                                                             ", "dim": "C3"}, {"id": 15, "text": "Dugoročno planiranje mi je izuzetno značajno                                                                        ", "dim": "C4"}, {"id": 16, "text": "Zadovoljniji sam kada moje odluke dovedu do boljih rezultata od rezultata mojih kolega                              ", "dim": "C2"}, {"id": 17, "text": "Važne zadatke ne bi trebalo delegirati zaposlenima na nižim pozicijama                                              ", "dim": "C2"}, {"id": 18, "text": "Jasne procedure su ključne za uspješnu realizaciju zadataka                                                         ", "dim": "C1"}, {"id": 19, "text": "Prije nego što se posveti svojim ciljevima  pojedinac bi trebalo da razmisli o tome kako oni utiču na grupu         ", "dim": "C3"}, {"id": 20, "text": "Spreman sam da se odreknem zabave danas zarad budućeg uspjeha                                                       ", "dim": "C4"}, {"id": 21, "text": "Lojalnost prema grupi treba podsticati  čak i kada se kosi s ličnim ciljevima                                       ", "dim": "C3"}, {"id": 22, "text": "Naporan rad zarad uspjeha u budućnosti  za mene je važan                                                            ", "dim": "C4"}];
     const NORMS = {"C1": {"5": 0.0, "6": 0.0, "7": 0.0, "8": 0.0, "9": 0.0, "10": 6.520723544399269, "11": 15.13698374285922, "12": 22.77921674919608, "13": 28.0885369285841, "14": 32.42048393045673, "15": 37.28490533241466, "16": 42.95417189705258, "17": 47.90274213347555, "18": 52.62011311538172, "19": 57.94885042292888, "20": 63.58622234266424, "21": 69.63874229853081, "22": 75.42545102329012, "23": 81.4767938656201, "24": 88.19958030249376, "25": 100.0}, "C2": {"6": 0.0, "7": 8.000704098685949, "8": 15.2888536041387, "9": 21.33680960447523, "10": 26.07540534036021, "11": 30.29035317157859, "12": 34.83563823299427, "13": 40.04391583492738, "14": 44.69152507982457, "15": 48.58608581707873, "16": 52.57750045543178, "17": 56.48247522079518, "18": 60.06251448332315, "19": 63.89191273387608, "20": 67.59528847966027, "21": 71.42857142857143, "22": 76.19047619047619, "23": 80.95238095238095, "24": 85.71428571428572, "25": 90.47619047619048, "26": 95.23809523809524, "27": 100.0, "28": 100.0, "29": 100.0, "30": 100.0}, "C3": {"6": 0.0, "7": 5.714537118960193, "8": 14.52653668726173, "9": 20.85961304571558, "10": 25.00225766012873, "11": 27.8356260484174, "12": 30.94922715177008, "13": 33.84308506161179, "14": 36.57778851405745, "15": 40.19013002681073, "16": 44.07572601771861, "17": 48.11948362836824, "18": 52.75639437003009, "19": 56.56028771984553, "20": 59.10036757159533, "21": 62.30395658795592, "22": 66.2909909523823, "23": 69.6620749828591, "24": 73.04413279088406, "25": 76.26835174013918, "26": 79.50741759027524, "27": 83.35988138916036, "28": 87.13842507845501, "29": 91.85249052560833, "30": 100.0}, "C4": {"5": 0.0, "6": 0.0, "7": 0.0, "8": 0.0, "9": 0.0, "10": 0.0, "11": 0.0, "12": 8.69206654482118, "13": 17.11279599732478, "14": 24.20027116580127, "15": 30.3046936486103, "16": 36.38265938445812, "17": 42.55135948786221, "18": 48.85995507136091, "19": 55.27024636326704, "20": 61.78339534546755, "21": 68.37696389785044, "22": 74.80047950315051, "23": 81.34042302389727, "24": 88.72142921702103, "25": 100.0}};
-    const FIGURES = [{"name": "Queen Victoria", "description": "Kraljica Engleske", "wiki": "https://sh.wikipedia.org/wiki/Viktorija", "profile": {"C1": 70.0, "C2": 0.0, "C3": 0.0, "C4": 0.0}}, {"name": "Napoleon", "description": "Francuski imperator", "wiki": "https://sh.wikipedia.org/wiki/Napoleon_I_Bonaparte", "profile": {"C1": 0.0, "C2": 70.0, "C3": 0.0, "C4": 0.0}}, {"name": "Marie Therese", "description": "Austrijska carica", "wiki": "https://sh.wikipedia.org/wiki/Maria_Theresia", "profile": {"C1": 0.0, "C2": 0.0, "C3": 70.0, "C4": 0.0}}, {"name": "Franklin Roosevelt", "description": "Američki predsednik", "wiki": "https://sh.wikipedia.org/wiki/Franklin_Delano_Roosevelt", "profile": {"C1": 0.0, "C2": 0.0, "C3": 0.0, "C4": 70.0}}, {"name": "Winston Churchill", "description": "Premijer Velike Britanije", "wiki": "https://sh.wikipedia.org/wiki/Winston_Churchill", "profile": {"C1": 20.0, "C2": 0.0, "C3": 0.0, "C4": 0.0}}, {"name": "Pericles", "description": "Atinski državnik", "wiki": "https://sh.wikipedia.org/wiki/Perikle", "profile": {"C1": 0.0, "C2": 20.0, "C3": 0.0, "C4": 0.0}}, {"name": "John Kennedy", "description": "Američki predsednik", "wiki": "https://sh.wikipedia.org/wiki/John_F._Kennedy", "profile": {"C1": 0.0, "C2": 0.0, "C3": 20.0, "C4": 0.0}}, {"name": "James 2", "description": "Kralj Engleske i Škotske", "wiki": "https://sh.wikipedia.org/wiki/James_II_od_Engleske", "profile": {"C1": 0.0, "C2": 0.0, "C3": 0.0, "C4": 20.0}}];
-    const DIMS_INFO = {"C1": {"name": "Clarity & Complliance vs Agility", "high": "Structured Culture - Emphasizes rules, consistency, SOPs. Predictable, process-driven, ideal for scaling operations.", "low": "Agile Culture - Values flexibility, improvisation, and informal processes. Good for startups, creative teams, or fast pivots."}, "C2": {"name": "Competitive Achievement", "high": "Performance-Driven Culture - Values competition, ambition, and personal wins. Ideal for sales, finance, high-stakes roles.", "low": "Empathetic Culture - Focused on emotional intelligence, harmony, and consensus. Ideal for care-based sectors or internal-facing roles."}, "C3": {"name": "Collective Loyalty", "high": "Team-First Culture - Prioritizes group harmony, shared credit, and loyalty. Strong cohesion and retention.", "low": "Individualist Culture - Encourages autonomy, self-expression, and personal goals. Energizing but can reduce cohesion."}, "C4": {"name": "Commitment to Growth", "high": "Growth-Oriented Culture - Values planning, long-term thinking, perseverance, and saving resources for the future.", "low": "Present-Oriented Culture - Optimized for short-term gains, flexibility, and immediate feedback loops. Can be highly reactive."}};
+    const FIGURES = [{"name": "Queen Victoria", "description": "", "wiki": "", "profile": {"C1": 70.0, "C2": 50.0, "C3": 50.0, "C4": 50.0}}, {"name": "Napoleon", "description": "", "wiki": "", "profile": {"C1": 50.0, "C2": 70.0, "C3": 50.0, "C4": 50.0}}, {"name": "Marie Therese", "description": "", "wiki": "", "profile": {"C1": 50.0, "C2": 50.0, "C3": 70.0, "C4": 50.0}}, {"name": "Franklin Roosevelt", "description": "", "wiki": "", "profile": {"C1": 50.0, "C2": 50.0, "C3": 50.0, "C4": 70.0}}, {"name": "Winston Churchill", "description": "", "wiki": "", "profile": {"C1": 20.0, "C2": 50.0, "C3": 50.0, "C4": 50.0}}, {"name": "Pericles", "description": "", "wiki": "", "profile": {"C1": 50.0, "C2": 20.0, "C3": 50.0, "C4": 50.0}}, {"name": "John Kennedy", "description": "", "wiki": "", "profile": {"C1": 50.0, "C2": 50.0, "C3": 20.0, "C4": 50.0}}, {"name": "James 2", "description": "", "wiki": "", "profile": {"C1": 50.0, "C2": 50.0, "C3": 50.0, "C4": 20.0}}];
+    const DIMS_INFO = {};
 
     const qWrap = document.getElementById('questions');
     function renderQuestions(){
@@ -136,12 +151,12 @@
       const angles = [ -Math.PI/2, 0, Math.PI/2, Math.PI ];
 
       // Osi
-      ctx.strokeStyle = '#666';
+      ctx.strokeStyle = '#999';
       dims.forEach((d,i)=>{
         const x = centerX + radius*Math.cos(angles[i]);
         const y = centerY + radius*Math.sin(angles[i]);
         ctx.beginPath(); ctx.moveTo(centerX,centerY); ctx.lineTo(x,y); ctx.stroke();
-        ctx.fillStyle='white'; ctx.font='12px sans-serif'; ctx.textAlign='center';
+        ctx.fillStyle='#333'; ctx.font='12px sans-serif'; ctx.textAlign='center';
         const label = (DIMS_INFO[d] && DIMS_INFO[d].name) ? DIMS_INFO[d].name : d;
         ctx.fillText(label, x, y+(i===0?-10:i===2?20:0));
       });
@@ -157,15 +172,15 @@
           if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
         });
         ctx.closePath();
-        ctx.fillStyle=color.replace('1)', '0.3)');
+        ctx.fillStyle=color.replace('1)', '0.25)');
         ctx.fill();
         ctx.strokeStyle=color;
         ctx.lineWidth=2;
         ctx.stroke();
       }
 
-      drawPoly(user,'rgba(110,168,254,1)');
-      drawPoly(figure,'rgba(255,110,110,1)');
+      drawPoly(user,'rgba(56,176,0,1)');    // zelena
+      drawPoly(figure,'rgba(255,209,0,1)'); // žuta
     }
 
     const form = document.getElementById('quiz');
@@ -189,7 +204,7 @@
 
       drawCompass(normed, best.profile);
 
-      legendDiv.innerHTML = '<span style="color:#6ea8fe">■ Tvoj profil</span><span style="color:#ff6e6e">■ ' + best.name + '</span>';
+      legendDiv.innerHTML = '<span style="color:#38B000">■ Tvoj profil</span><span style="color:#FFD100">■ ' + best.name + '</span>';
 
       detailsDiv.innerHTML = "";
       dims.forEach(d => {
