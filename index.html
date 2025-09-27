@@ -3,64 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>The 4C Culture Compass™ by Recrewty</title>
+  <title>The 4C Culture Compass™ by Recrewty (Draw Test)</title>
   <style>
-    :root{--bg:#0b1020;--card:#121a36;--muted:#98a2b3;--text:#e6e9f2;--accent:#6ea8fe;}
-    *{box-sizing:border-box}
-    body{margin:0;background:linear-gradient(180deg,#0b1020,#0e1630);color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;line-height:1.5;}
-    .wrap{max-width:1000px;margin:auto;padding:24px}
-    header{display:flex;align-items:center;justify-content:space-between;margin:8px 0 24px}
-    h1{font-size:24px;margin:0}
-    .card{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.25);}
-    .intro{padding:16px 20px;margin-bottom:16px}
-    .q{padding:16px 20px;border-top:1px solid rgba(255,255,255,.06);}
-    .q:first-child{border-top:none}
-    .q h3{font-size:16px;margin:0 0 12px}
-    .scale{display:flex;gap:10px;flex-wrap:wrap}
-    .scale label{display:flex;align-items:center;gap:8px;background:#0f1733;border:1px solid rgba(255,255,255,.06);padding:8px 10px;border-radius:12px;cursor:pointer;transition:.15s transform}
-    .scale input{accent-color:var(--accent)}
-    .actions{display:flex;gap:12px;justify-content:flex-end;padding:14px 20px;border-top:1px solid rgba(255,255,255,.06)}
-    button{background:var(--accent);border:none;color:#05122e;padding:10px 16px;border-radius:12px;font-weight:600;cursor:pointer}
-    .muted{color:var(--muted)}
-    .grid{display:grid;grid-template-columns:1fr;gap:16px}
-    @media (min-width: 980px){ .grid{grid-template-columns:1.2fr .8fr} }
-    .result{padding:16px 20px;text-align:center}
-    .best-card{padding:16px 20px;border-top:1px solid rgba(255,255,255,.06);text-align:left}
-    .best-card h2{margin:0 0 6px}
-    a{color:#a7c7ff}
-    .small{font-size:12px}
-    .dim-desc{margin:8px 0 16px;font-size:13px;line-height:1.4;text-align:left}
-    canvas{max-width:100%;height:auto;margin-top:20px;}
-    .legend{margin-top:10px;font-size:13px}
+    body{background:#0b1020;color:#e6e9f2;font-family:sans-serif;line-height:1.4;padding:20px}
+    canvas{max-width:100%;height:auto;display:block;margin:20px auto;border:1px solid #444}
+    .legend{margin-top:10px;text-align:center}
     .legend span{margin:0 10px}
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <h1>The 4C Culture Compass™ by Recrewty</h1>
-    </header>
-
-    <div class="grid">
-      <form id="quiz" class="card">
-        <div class="intro">
-          <p class="muted">Odgovori za svaku tvrdnju od 1 (uopšte se ne slažem) do 5 (u potpunosti se slažem).</p>
-        </div>
-        <div id="questions"></div>
-        <div class="actions">
-          <button type="submit">Pošalji</button>
-          <button type="button" id="resetBtn" class="muted" style="background:transparent;color:var(--text);border:1px solid rgba(255,255,255,.12)">Poništi</button>
-        </div>
-      </form>
-
-      <section id="output" class="card" aria-live="polite">
-        <div class="result">
-          <h2>Rezultat</h2>
-          <p class="muted small">Nakon slanja testa, ovde će biti prikazan kompas dijagram, tvoji skorovi i najbliža istorijska ličnost.</p>
-        </div>
-      </section>
-    </div>
-  </div>
+  <h1>The 4C Culture Compass™ by Recrewty (Draw Test)</h1>
+  <form id="quiz">
+    <div id="questions"></div>
+    <button type="submit">Pošalji</button>
+  </form>
+  <div id="output"></div>
 
   <script>
     const ITEMS = [{"id": 1, "text": "Potrebna su mi precizna uputstva kako bih tačno znao šta se od mene očekuje                                         ", "dim": "C1"}, {"id": 2, "text": "Pojedinac treba da stavi interes grupe ispred svog                                                                  ", "dim": "C3"}, {"id": 3, "text": "Smatram da je pažljivo upravljanje novcem veoma važno                                                               ", "dim": "C4"}, {"id": 4, "text": "Moj primarni cilj u donošenju odluka je da postignem najbolje rezultate  čak i ako to znači da zasenim ideje drugih ", "dim": "C2"}, {"id": 5, "text": "Nije poželjno da rukovodioci često traže mišljenje zaposlenih na nižim pozicijama                                   ", "dim": "C2"}, {"id": 6, "text": "Pridržavanje pravila i procedura je ključno za dobar rad                                                            ", "dim": "C1"}, {"id": 7, "text": "Čak i u teškim vremenima  ljudi bi trebalo da ostanu lojalni svojoj grupi                                           ", "dim": "C3"}, {"id": 8, "text": "Za mene je važno da istrajem i kada se suočavam sa otporom                                                          ", "dim": "C4"}, {"id": 9, "text": "Kako se ljudi osjećaju u procesu donošenja odluka nije važan faktor                                                 ", "dim": "C2"}, {"id": 10, "text": "Pravila i propisi mi pomažu da znam šta se od mene očekuje                                                          ", "dim": "C1"}, {"id": 11, "text": "Važnije je da grupa napreduje nego da se ističu pojedinci                                                           ", "dim": "C3"}, {"id": 12, "text": "Nije mi bitan uticaj odluka na osjećanja i odnose ljudi                                                             ", "dim": "C2"}, {"id": 13, "text": "Standardizovane procedure olakšavaju obavljanje posla                                                               ", "dim": "C1"}, {"id": 14, "text": "Bolje je kada uspije tim nego pojedinac                                                                             ", "dim": "C3"}, {"id": 15, "text": "Dugoročno planiranje mi je izuzetno značajno                                                                        ", "dim": "C4"}, {"id": 16, "text": "Zadovoljniji sam kada moje odluke dovedu do boljih rezultata od rezultata mojih kolega                              ", "dim": "C2"}, {"id": 17, "text": "Važne zadatke ne bi trebalo delegirati zaposlenima na nižim pozicijama                                              ", "dim": "C2"}, {"id": 18, "text": "Jasne procedure su ključne za uspješnu realizaciju zadataka                                                         ", "dim": "C1"}, {"id": 19, "text": "Prije nego što se posveti svojim ciljevima  pojedinac bi trebalo da razmisli o tome kako oni utiču na grupu         ", "dim": "C3"}, {"id": 20, "text": "Spreman sam da se odreknem zabave danas zarad budućeg uspjeha                                                       ", "dim": "C4"}, {"id": 21, "text": "Lojalnost prema grupi treba podsticati  čak i kada se kosi s ličnim ciljevima                                       ", "dim": "C3"}, {"id": 22, "text": "Naporan rad zarad uspjeha u budućnosti  za mene je važan                                                            ", "dim": "C4"}];
@@ -69,29 +26,19 @@
     const DIMS_INFO = {"C1": {"name": "Clarity & Complliance vs Agility", "high": "Structured Culture - Emphasizes rules, consistency, SOPs. Predictable, process-driven, ideal for scaling operations.", "low": "Agile Culture - Values flexibility, improvisation, and informal processes. Good for startups, creative teams, or fast pivots."}, "C2": {"name": "Competitive Achievement", "high": "Performance-Driven Culture - Values competition, ambition, and personal wins. Ideal for sales, finance, high-stakes roles.", "low": "Empathetic Culture - Focused on emotional intelligence, harmony, and consensus. Ideal for care-based sectors or internal-facing roles."}, "C3": {"name": "Collective Loyalty", "high": "Team-First Culture - Prioritizes group harmony, shared credit, and loyalty. Strong cohesion and retention.", "low": "Individualist Culture - Encourages autonomy, self-expression, and personal goals. Energizing but can reduce cohesion."}, "C4": {"name": "Commitment to Growth", "high": "Growth-Oriented Culture - Values planning, long-term thinking, perseverance, and saving resources for the future.", "low": "Present-Oriented Culture - Optimized for short-term gains, flexibility, and immediate feedback loops. Can be highly reactive."}};
 
     const qWrap = document.getElementById('questions');
-    function renderQuestions(){
-      qWrap.innerHTML = '';
-      ITEMS.sort((a,b)=>a.id-b.id).forEach(q => { 
-        const div = document.createElement('div');
-        div.className = 'q';
-        div.innerHTML = `
-          <h3>${q.id}. ${q.text}</h3>
-          <div class="scale">
-            ${[1,2,3,4,5].map(v => `
-              <label>
-                <input type="radio" name="q_${q.id}" value="${v}" required /> ${v}
-              </label>`).join('')}
-          </div>
-          <div class="small muted">Skala: 1 = nimalo • 5 = u potpunosti</div>
-        `;
-        qWrap.appendChild(div);
-      });
-    }
-    renderQuestions();
+    ITEMS.sort((a,b)=>a.id-b.id).forEach(q => {
+      const div = document.createElement('div');
+      div.innerHTML = `<p>${q.id}. ${q.text}
+        ${[1,2,3,4,5].map(v=>`<label><input type="radio" name="q_${q.id}" value="${v}" required>${v}</label>`).join('')}
+      </p>`;
+      qWrap.appendChild(div);
+    });
 
     function computeRawScores(form){
       const sums = {};
-      ITEMS.forEach(q => { sums[q.dim] = (sums[q.dim]||0) + Number(form.get(`q_${q.id}`)||0); });
+      ITEMS.forEach(q => { 
+        sums[q.dim] = (sums[q.dim]||0) + Number(form.get(`q_${q.id}`)||0); 
+      });
       return sums;
     }
 
@@ -122,127 +69,69 @@
     }
 
     function drawCompass(user, figure){
-      const containerWidth = Math.min(800, document.querySelector('.result').clientWidth - 40);
-      const size = Math.max(320, containerWidth);
+      const size = 400;
       const canvas = document.createElement('canvas');
       canvas.width = size; canvas.height = size;
       const ctx = canvas.getContext('2d');
       const radius = size * 0.36;
-      const centerX = canvas.width/2;
-      const centerY = canvas.height/2;
+      const centerX = size/2, centerY = size/2;
       const dims = ['C1','C2','C3','C4'];
       const angles = [ -Math.PI/2, 0, Math.PI/2, Math.PI ]; // gore, desno, dole, levo
 
-      function drawAxes(){
-        ctx.strokeStyle = '#555';
-        ctx.lineWidth = 1;
-        dims.forEach((d,i)=>{
-          const x = centerX + radius*Math.cos(angles[i]);
-          const y = centerY + radius*Math.sin(angles[i]);
-          ctx.beginPath();
-          ctx.moveTo(centerX,centerY);
-          ctx.lineTo(x,y);
-          ctx.stroke();
-          ctx.fillStyle = 'white';
-          ctx.font = Math.max(10, Math.floor(size*0.028)) + 'px sans-serif';
-          ctx.textAlign = 'center';
-          const offsetY = (i===0?-10: i===2?20:0);
-          const label = (DIMS_INFO[d] && DIMS_INFO[d].name) ? DIMS_INFO[d].name : d;
-          ctx.fillText(label, x, y + offsetY);
-        });
-      }
+      // Osi
+      ctx.strokeStyle = '#666';
+      dims.forEach((d,i)=>{
+        const x = centerX + radius*Math.cos(angles[i]);
+        const y = centerY + radius*Math.sin(angles[i]);
+        ctx.beginPath(); ctx.moveTo(centerX,centerY); ctx.lineTo(x,y); ctx.stroke();
+        ctx.fillStyle='white'; ctx.font='12px sans-serif'; ctx.textAlign='center';
+        const label = (DIMS_INFO[d] && DIMS_INFO[d].name) ? DIMS_INFO[d].name : d;
+        ctx.fillText(label, x, y+(i===0?-10:i===2?20:0));
+      });
 
-      function drawPoly(values, color, frac){
+      function drawPoly(values,color){
         ctx.beginPath();
         values.forEach((val,i)=>{
-          const r = (val/100)*radius*frac;
-          const x = centerX + r*Math.cos(angles[i]);
-          const y = centerY + r*Math.sin(angles[i]);
+          const r=(val/100)*radius;
+          const x=centerX+r*Math.cos(angles[i]);
+          const y=centerY+r*Math.sin(angles[i]);
           if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
         });
         ctx.closePath();
-        ctx.fillStyle = color.replace('1)', '0.4)');
+        ctx.fillStyle=color.replace('1)', '0.3)');
         ctx.fill();
-        ctx.strokeStyle = color;
-        ctx.lineWidth = Math.max(1, Math.floor(size*0.004));
+        ctx.strokeStyle=color;
+        ctx.lineWidth=2;
         ctx.stroke();
       }
 
-      // Uvek prvo iscrtaj statičnu verziju
-      ctx.fillStyle = '#0b1020';
-      ctx.fillRect(0,0,canvas.width,canvas.height);
-      drawAxes();
-      drawPoly(Object.values(user), 'rgba(110,168,254,1)', 1);
-      drawPoly(Object.values(figure), 'rgba(255,110,110,1)', 1);
-
-      // Animacija preko requestAnimationFrame
-      let step = 0;
-      const steps = 10;
-      function animate(){
-        ctx.fillStyle = '#0b1020';
-        ctx.fillRect(0,0,canvas.width,canvas.height);
-        drawAxes();
-
-        if(step<=steps){
-          drawPoly(Object.values(user), 'rgba(110,168,254,1)', step/steps);
-        } else {
-          drawPoly(Object.values(user), 'rgba(110,168,254,1)', 1);
-          const frac = (step-steps)/steps;
-          drawPoly(Object.values(figure), 'rgba(255,110,110,1)', frac);
-        }
-        step++;
-        if(step<=2*steps){
-          requestAnimationFrame(animate);
-        }
-      }
-      animate();
-
+      drawPoly(Object.values(user),'rgba(110,168,254,1)');
+      drawPoly(Object.values(figure),'rgba(255,110,110,1)');
       return canvas;
     }
 
-    const form = document.getElementById('quiz');
-    const out = document.getElementById('output');
-    form.addEventListener('submit', (e)=>{
+    const form=document.getElementById('quiz');
+    const out=document.getElementById('output');
+    form.addEventListener('submit',(e)=>{
       e.preventDefault();
-      const data = new FormData(form);
-      const raw = computeRawScores(data);
-      const dims = ['C1','C2','C3','C4'];
-      const normed = {}
-      dims.forEach(d=> normed[d] = Number(normLookup(d, raw[d]||0).toFixed(2)) );
+      const data=new FormData(form);
+      const raw=computeRawScores(data);
+      const dims=['C1','C2','C3','C4'];
+      const normed={};
+      dims.forEach(d=> normed[d]=Number(normLookup(d,raw[d]||0).toFixed(2)) );
 
-      let best = null, bestDist = Infinity;
-      FIGURES.forEach(f => { 
-        const dist = distance(normed, f.profile);
-        if(dist < bestDist){ bestDist = dist; best = f; }
+      let best=null,bestDist=Infinity;
+      FIGURES.forEach(f=>{
+        const dist=distance(normed,f.profile);
+        if(dist<bestDist){bestDist=dist;best=f;}
       });
 
-      out.innerHTML = `<div class="result"><h2>Rezultat</h2></div>`;
-      const canvas = drawCompass(normed, best.profile);
-      out.querySelector('.result').appendChild(canvas);
-      const legend = document.createElement('div');
-      legend.className = 'legend';
-      legend.innerHTML = '<span style="color:#6ea8fe">■ Tvoj profil</span><span style="color:#ff6e6e">■ ' + best.name + '</span>';
-      out.querySelector('.result').appendChild(legend);
-
-      // Dimenzije i opisi
-      dims.forEach(d => {
-        const div = document.createElement('div');
-        div.className = 'dim-desc';
-        div.innerHTML = `<strong>${d} - ${(DIMS_INFO[d] && DIMS_INFO[d].name) ? DIMS_INFO[d].name : d}</strong>: ${normed[d]}
-          <div><em>Visok skor:</em> ${(DIMS_INFO[d] && DIMS_INFO[d].high) ? DIMS_INFO[d].high : ''}</div>
-          <div><em>Nizak skor:</em> ${(DIMS_INFO[d] && DIMS_INFO[d].low) ? DIMS_INFO[d].low : ''}</div>`;
-        out.appendChild(div);
-      });
-
-      // Najbliža ličnost
-      out.innerHTML += `<div class="best-card"><h2>Najsličniji si: ${best.name}</h2><p>${best.description ? best.description : ''}</p>${best.wiki ? `<p><a href="${best.wiki}" target="_blank" rel="noopener">Pročitaj više na Wikipediji →</a></p>` : ''}</div>`;
-      window.scrollTo({top:0,behavior:'smooth'});
-    });
-
-    document.getElementById('resetBtn').addEventListener('click', ()=>{
-      form.reset();
-      out.innerHTML = '<div class="result"><h2>Rezultat</h2><p class="muted small">Nakon slanja testa, ovde će biti prikazan kompas dijagram, tvoji skorovi i najbliža istorijska ličnost.</p></div>';
-      window.scrollTo({top:0,behavior:'smooth'});
+      out.innerHTML="<h2>Rezultat</h2>";
+      out.appendChild(drawCompass(normed,best.profile));
+      const legend=document.createElement('div');
+      legend.className='legend';
+      legend.innerHTML='<span style="color:#6ea8fe">■ Tvoj profil</span><span style="color:#ff6e6e">■ '+best.name+'</span>';
+      out.appendChild(legend);
     });
   </script>
 </body>
