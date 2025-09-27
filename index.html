@@ -142,9 +142,11 @@
         ctx.fillText(label, x, y+(i===0?-10:i===2?20:0));
       });
 
-      function drawPoly(values,color){
+      function drawPoly(obj,color){
+        const dimsOrder = ['C1','C2','C3','C4'];
         ctx.beginPath();
-        values.forEach((val,i)=>{
+        dimsOrder.forEach((dim,i)=>{
+          const val = obj[dim]||0;
           const r=(val/100)*radius;
           const x=centerX+r*Math.cos(angles[i]);
           const y=centerY+r*Math.sin(angles[i]);
@@ -158,8 +160,8 @@
         ctx.stroke();
       }
 
-      drawPoly(Object.values(user),'rgba(110,168,254,1)');
-      drawPoly(Object.values(figure),'rgba(255,110,110,1)');
+      drawPoly(user,'rgba(110,168,254,1)');
+      drawPoly(figure,'rgba(255,110,110,1)');
       return canvas;
     }
 
