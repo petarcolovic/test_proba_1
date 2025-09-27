@@ -30,7 +30,7 @@
     a{color:#a7c7ff}
     .small{font-size:12px}
     .dim-desc{margin:8px 0 16px;font-size:13px;line-height:1.4;text-align:left}
-    canvas{max-width:100%;height:auto;margin-top:20px;}
+    canvas{max-width:100%;height:auto;margin-top:20px;border:1px solid #444;}
     .legend{margin-top:10px;font-size:13px}
     .legend span{margin:0 10px}
   </style>
@@ -56,8 +56,11 @@
       <section id="output" class="card" aria-live="polite">
         <div class="result">
           <h2>Rezultat</h2>
+          <canvas id="compassCanvas" width="400" height="400"></canvas>
+          <div id="legend"></div>
           <p class="muted small">Nakon slanja testa, ovde će biti prikazan kompas dijagram, tvoji skorovi i najbliža istorijska ličnost.</p>
         </div>
+        <div id="details"></div>
       </section>
     </div>
   </div>
@@ -121,16 +124,16 @@
       return Math.sqrt(s);
     }
 
-    // drawCompass preuzet direktno iz index_draw.html (provereno radi)
     function drawCompass(user, figure){
-      const size = 400;
-      const canvas = document.createElement('canvas');
-      canvas.width = size; canvas.height = size;
+      const canvas = document.getElementById('compassCanvas');
       const ctx = canvas.getContext('2d');
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+
+      const size = canvas.width;
       const radius = size * 0.36;
       const centerX = size/2, centerY = size/2;
       const dims = ['C1','C2','C3','C4'];
-      const angles = [ -Math.PI/2, 0, Math.PI/2, Math.PI ]; // gore, desno, dole, levo
+      const angles = [ -Math.PI/2, 0, Math.PI/2, Math.PI ];
 
       // Osi
       ctx.strokeStyle = '#666';
@@ -163,11 +166,13 @@
 
       drawPoly(user,'rgba(110,168,254,1)');
       drawPoly(figure,'rgba(255,110,110,1)');
-      return canvas;
     }
 
     const form = document.getElementById('quiz');
     const out = document.getElementById('output');
+    const legendDiv = document.getElementById('legend');
+    const detailsDiv = document.getElementById('details');
+
     form.addEventListener('submit', (e)=>{
       e.preventDefault();
       const data = new FormData(form);
@@ -182,32 +187,30 @@
         if(dist < bestDist){ bestDist = dist; best = f; }
       });
 
-      out.innerHTML = `<div class="result"><h2>Rezultat</h2></div>`;
-      const canvas = drawCompass(normed, best.profile);
-      out.querySelector('.result').appendChild(canvas);
-      const legend = document.createElement('div');
-      legend.className = 'legend';
-      legend.innerHTML = '<span style="color:#6ea8fe">■ Tvoj profil</span><span style="color:#ff6e6e">■ ' + best.name + '</span>';
-      out.querySelector('.result').appendChild(legend);
+      drawCompass(normed, best.profile);
 
-      // Dimenzije i opisi
+      legendDiv.innerHTML = '<span style="color:#6ea8fe">■ Tvoj profil</span><span style="color:#ff6e6e">■ ' + best.name + '</span>';
+
+      detailsDiv.innerHTML = "";
       dims.forEach(d => {
         const div = document.createElement('div');
         div.className = 'dim-desc';
         div.innerHTML = `<strong>${d} - ${(DIMS_INFO[d] && DIMS_INFO[d].name) ? DIMS_INFO[d].name : d}</strong>: ${normed[d]}
           <div><em>Visok skor:</em> ${(DIMS_INFO[d] && DIMS_INFO[d].high) ? DIMS_INFO[d].high : ''}</div>
           <div><em>Nizak skor:</em> ${(DIMS_INFO[d] && DIMS_INFO[d].low) ? DIMS_INFO[d].low : ''}</div>`;
-        out.appendChild(div);
+        detailsDiv.appendChild(div);
       });
 
-      // Najbliža ličnost
-      out.innerHTML += `<div class="best-card"><h2>Najsličniji si: ${best.name}</h2><p>${best.description ? best.description : ''}</p>${best.wiki ? `<p><a href="${best.wiki}" target="_blank" rel="noopener">Pročitaj više na Wikipediji →</a></p>` : ''}</div>`;
+      detailsDiv.innerHTML += `<div class="best-card"><h2>Najsličniji si: ${best.name}</h2><p>${best.description ? best.description : ''}</p>${best.wiki ? `<p><a href="${best.wiki}" target="_blank" rel="noopener">Pročitaj više na Wikipediji →</a></p>` : ''}</div>`;
       window.scrollTo({top:0,behavior:'smooth'});
     });
 
     document.getElementById('resetBtn').addEventListener('click', ()=>{
       form.reset();
-      out.innerHTML = '<div class="result"><h2>Rezultat</h2><p class="muted small">Nakon slanja testa, ovde će biti prikazan kompas dijagram, tvoji skorovi i najbliža istorijska ličnost.</p></div>';
+      const ctx = document.getElementById('compassCanvas').getContext('2d');
+      ctx.clearRect(0,0,400,400);
+      legendDiv.innerHTML = "";
+      detailsDiv.innerHTML = '<p class="muted small">Nakon slanja testa, ovde će biti prikazan kompas dijagram, tvoji skorovi i najbliža istorijska ličnost.</p>';
       window.scrollTo({top:0,behavior:'smooth'});
     });
   </script>
