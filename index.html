@@ -275,4 +275,36 @@
 
       let best = null, bestDist = Infinity;
       FIGURES.forEach(f => { 
-        const dist = distance(normed
+        const dist = distance(normed, f.profile);
+        if(dist < bestDist){ bestDist = dist; best = f; }
+      });
+
+      drawCompass(normed, best.profile);
+
+      legendDiv.innerHTML = '<span style="color:#38B000">■ Tvoj profil</span><span style="color:#ff6e6e">■ ' + best.name + '</span>';
+
+      detailsDiv.innerHTML = "";
+      dims.forEach(d => {
+        const div = document.createElement('div');
+        div.className = 'dim-desc';
+        div.innerHTML = `<strong>${d} - ${DIMS_INFO[d].name}</strong>: ${normed[d]}
+          <div><em>Visok skor:</em> ${DIMS_INFO[d].high}</div>
+          <div><em>Nizak skor:</em> ${DIMS_INFO[d].low}</div>`;
+        detailsDiv.appendChild(div);
+      });
+
+      detailsDiv.innerHTML += `<div class="best-card"><h2>Najsličniji si: ${best.name}</h2><p>${best.description}</p><p><a href="${best.wiki}" target="_blank" rel="noopener">Pročitaj više na Wikipediji →</a></p></div>`;
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+
+    document.getElementById('resetBtn').addEventListener('click', ()=>{
+      form.reset();
+      const ctx = document.getElementById('compassCanvas').getContext('2d');
+      ctx.clearRect(0,0,400,400);
+      legendDiv.innerHTML = "";
+      detailsDiv.innerHTML = '<p class="muted small">Nakon slanja testa, ovde će biti prikazan kompas dijagram, tvoji skorovi i najbliža istorijska ličnost.</p>';
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+  </script>
+</body>
+</html>
