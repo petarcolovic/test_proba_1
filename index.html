@@ -1,35 +1,229 @@
-
 <!DOCTYPE html>
 <html lang="sr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>The 4C Culture Compass™ by Recrewty</title>
+  <style>
+    :root{
+      --bg:#ffffff;--card:#f8f9fa;--muted:#6c757d;--text:#333333;
+      --accent:#38B000;--accent2:#FFD100;--footer:#e9ecef;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;line-height:1.5;display:flex;flex-direction:column;min-height:100vh;}
+    .wrap{flex:1;max-width:1000px;margin:auto;padding:24px}
+    header{display:flex;align-items:center;gap:12px;margin:8px 0 24px}
+    header img{height:40px;background:#f1f1f1;padding:4px;border-radius:8px}
+    header h1{font-size:24px;margin:0;color:var(--accent)}
+    .card{background:var(--card);border:1px solid rgba(0,0,0,.06);border-radius:16px;box-shadow:0 4px 12px rgba(0,0,0,.08);}
+    .intro{padding:16px 20px;margin-bottom:16px}
+    .q{padding:16px 20px;border-top:1px solid rgba(0,0,0,.06);}
+    .q:first-child{border-top:none}
+    .q h3{font-size:16px;margin:0 0 12px}
+    .scale{display:flex;gap:10px;flex-wrap:wrap}
+    .scale label{display:flex;align-items:center;gap:8px;background:white;border:1px solid rgba(0,0,0,.06);padding:8px 10px;border-radius:12px;cursor:pointer}
+    .scale input{accent-color:var(--accent)}
+    .actions{display:flex;gap:12px;justify-content:flex-end;padding:14px 20px;border-top:1px solid rgba(0,0,0,.06)}
+    button{background:var(--accent);border:none;color:white;padding:10px 16px;border-radius:12px;font-weight:600;cursor:pointer}
+    button:hover{background:#2e8c00}
+    .muted{color:var(--muted)}
+    .grid{display:grid;grid-template-columns:1fr;gap:16px}
+    @media (min-width: 980px){ .grid{grid-template-columns:1.2fr .8fr} }
+    .result{padding:16px 20px;text-align:center}
+    .best-card{padding:16px 20px;border-top:1px solid rgba(0,0,0,.06);text-align:left}
+    .best-card h2{margin:0 0 6px;color:var(--accent)}
+    a{color:var(--accent)}
+    .small{font-size:12px}
+    .dim-desc{margin:8px 0 16px;font-size:13px;line-height:1.4;text-align:left}
+    canvas{max-width:100%;height:auto;margin-top:20px;border:1px solid #ddd;}
+    .legend{margin-top:10px;font-size:13px}
+    .legend span{margin:0 10px;font-weight:600}
+    footer{background:var(--footer);padding:8px 16px;display:flex;align-items:center;gap:8px;position:sticky;bottom:0;left:0;right:0;}
+    footer img{height:20px;background:#f1f1f1;padding:2px;border-radius:4px}
+    footer a{text-decoration:none;color:var(--text);font-size:14px}
+  </style>
 </head>
 <body>
-  <header>
-    <img src='recrewty-logo-white.png' alt='Recrewty logo' style='height:40px;background:#f1f1f1;padding:4px;border-radius:8px;'/>
-    <h1>The 4C Culture Compass™ by Recrewty</h1>
-  </header>
-  <main>
-    <h2>Opis dimenzija</h2>
-    <div id="dim-descriptions"></div>
-  </main>
+  <div class="wrap">
+    <header>
+      <img src="recrewty-logo-white.png" alt="Recrewty logo"/>
+      <h1>The 4C Culture Compass™ by Recrewty</h1>
+    </header>
+
+    <div class="grid">
+      <form id="quiz" class="card">
+        <div class="intro">
+          <p class="muted">Odgovori za svaku tvrdnju od 1 (uopšte se ne slažem) do 5 (u potpunosti se slažem).</p>
+        </div>
+        <div id="questions"></div>
+        <div class="actions">
+          <button type="submit">Pošalji</button>
+          <button type="button" id="resetBtn" class="muted" style="background:transparent;color:var(--text);border:1px solid rgba(0,0,0,.12)">Poništi</button>
+        </div>
+      </form>
+
+      <section id="output" class="card" aria-live="polite">
+        <div class="result">
+          <h2>Rezultat</h2>
+          <canvas id="compassCanvas" width="400" height="400"></canvas>
+          <div id="legend"></div>
+          <p class="muted small">Nakon slanja testa, ovde će biti prikazan kompas dijagram, tvoji skorovi i najbliža istorijska ličnost.</p>
+        </div>
+        <div id="details"></div>
+      </section>
+    </div>
+  </div>
   <footer>
     <a href="https://recrewty.com" target="_blank" rel="noopener">
-      <img src="recrewty-logo-white.png" alt="Recrewty logo" style="height:20px;background:#f1f1f1;padding:2px;border-radius:4px"/> The 4C Culture Compass™ by Recrewty
+      <img src="recrewty-logo-white.png" alt="Recrewty logo"/> The 4C Culture Compass™ by Recrewty
     </a>
   </footer>
+
   <script>
-    const DIMS_INFO = {"C1": {"name": "Clarity & Complliance vs Agility", "high": "Structured Culture - Emphasizes rules, consistency, SOPs. Predictable, process-driven, ideal for scaling operations.", "low": "Agile Culture - Values flexibility, improvisation, and informal processes. Good for startups, creative teams, or fast pivots."}, "C2": {"name": "Competitive Achievement", "high": "Performance-Driven Culture - Values competition, ambition, and personal wins. Ideal for sales, finance, high-stakes roles.", "low": "Empathetic Culture - Focused on emotional intelligence, harmony, and consensus. Ideal for care-based sectors or internal-facing roles."}, "C3": {"name": "Collective Loyalty", "high": "Team-First Culture - Prioritizes group harmony, shared credit, and loyalty. Strong cohesion and retention.", "low": "Individualist Culture - Encourages autonomy, self-expression, and personal goals. Energizing but can reduce cohesion."}, "C4": {"name": "Commitment to Growth", "high": "Growth-Oriented Culture - Values planning, long-term thinking, perseverance, and saving resources for the future.", "low": "Present-Oriented Culture - Optimized for short-term gains, flexibility, and immediate feedback loops. Can be highly reactive."}};
-    const container = document.getElementById("dim-descriptions");
-    Object.keys(DIMS_INFO).forEach(d => {
-      const info = DIMS_INFO[d];
-      const div = document.createElement("div");
-      div.innerHTML = `<h3>${d} - ${info.name}</h3>
-        <p><strong>Visok skor:</strong> ${info.high}</p>
-        <p><strong>Nizak skor:</strong> ${info.low}</p>`;
-      container.appendChild(div);
+    const ITEMS = __ITEMS__;
+    const NORMS = __NORMS__;
+    const FIGURES = __FIGURES__;
+    const DIMS_INFO = __DIMS__;
+
+    const qWrap = document.getElementById('questions');
+    function renderQuestions(){
+      qWrap.innerHTML = '';
+      ITEMS.sort((a,b)=>a.id-b.id).forEach(q => { 
+        const div = document.createElement('div');
+        div.className = 'q';
+        div.innerHTML = `
+          <h3>${q.id}. ${q.text}</h3>
+          <div class="scale">
+            ${[1,2,3,4,5].map(v => `
+              <label>
+                <input type="radio" name="q_${q.id}" value="${v}" required /> ${v}
+              </label>`).join('')}
+          </div>
+          <div class="small muted">Skala: 1 = nimalo • 5 = u potpunosti</div>
+        `;
+        qWrap.appendChild(div);
+      });
+    }
+    renderQuestions();
+
+    function computeRawScores(form){
+      const sums = {};
+      ITEMS.forEach(q => { sums[q.dim] = (sums[q.dim]||0) + Number(form.get(`q_${q.id}`)||0); });
+      return sums;
+    }
+
+    function normLookup(dim, raw){
+      const table = NORMS[dim];
+      if(!table) return null;
+      let exact = table[String(raw)];
+      if(exact !== undefined) return exact;
+      const keys = Object.keys(table).map(k=>Number(k)).sort((a,b)=>a-b);
+      if(keys.length===0) return null;
+      if(raw <= keys[0]) return table[String(keys[0])];
+      if(raw >= keys[keys.length-1]) return table[String(keys[keys.length-1])];
+      let i=0;
+      while(i<keys.length && keys[i] < raw) i++;
+      const k2 = keys[i];
+      const k1 = keys[i-1];
+      const v1 = table[String(k1)];
+      const v2 = table[String(k2)];
+      const t = (raw - k1) / (k2 - k1);
+      return v1 + t*(v2 - v1);
+    }
+
+    function distance(user, fig){
+      const dims = ['C1','C2','C3','C4'];
+      let s = 0;
+      for(const d of dims){ const diff = (user[d]||0) - (fig[d]||0); s += diff*diff; }
+      return Math.sqrt(s);
+    }
+
+    function drawCompass(user, figure){
+      const canvas = document.getElementById('compassCanvas');
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+
+      const size = canvas.width;
+      const radius = size * 0.36;
+      const centerX = size/2, centerY = size/2;
+      const dims = ['C1','C2','C3','C4'];
+      const angles = [ -Math.PI/2, 0, Math.PI/2, Math.PI ];
+
+      ctx.strokeStyle = '#999';
+      dims.forEach((d,i)=>{
+        const x = centerX + radius*Math.cos(angles[i]);
+        const y = centerY + radius*Math.sin(angles[i]);
+        ctx.beginPath(); ctx.moveTo(centerX,centerY); ctx.lineTo(x,y); ctx.stroke();
+        ctx.fillStyle='#333'; ctx.font='12px sans-serif'; ctx.textAlign='center';
+        const label = (DIMS_INFO[d] && DIMS_INFO[d].name) ? DIMS_INFO[d].name : d;
+        ctx.fillText(label, x, y+(i===0?-10:i===2?20:0));
+      });
+
+      function drawPoly(obj,color){
+        const dimsOrder = ['C1','C2','C3','C4'];
+        ctx.beginPath();
+        dimsOrder.forEach((dim,i)=>{
+          const val = obj[dim]||0;
+          const r=(val/100)*radius;
+          const x=centerX+r*Math.cos(angles[i]);
+          const y=centerY+r*Math.sin(angles[i]);
+          if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+        });
+        ctx.closePath();
+        ctx.fillStyle=color.replace('1)', '0.25)');
+        ctx.fill();
+        ctx.strokeStyle=color;
+        ctx.lineWidth=2;
+        ctx.stroke();
+      }
+
+      drawPoly(user,'rgba(56,176,0,1)');    // zelena
+      drawPoly(figure,'rgba(255,209,0,1)'); // žuta
+    }
+
+    const form = document.getElementById('quiz');
+    const legendDiv = document.getElementById('legend');
+    const detailsDiv = document.getElementById('details');
+
+    form.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const data = new FormData(form);
+      const raw = computeRawScores(data);
+      const dims = ['C1','C2','C3','C4'];
+      const normed = {}
+      dims.forEach(d=> normed[d] = Number(normLookup(d, raw[d]||0).toFixed(2)) );
+
+      let best = null, bestDist = Infinity;
+      FIGURES.forEach(f => { 
+        const dist = distance(normed, f.profile);
+        if(dist < bestDist){ bestDist = dist; best = f; }
+      });
+
+      drawCompass(normed, best.profile);
+
+      legendDiv.innerHTML = '<span style="color:#38B000">■ Tvoj profil</span><span style="color:#FFD100">■ ' + best.name + '</span>';
+
+      detailsDiv.innerHTML = "";
+      dims.forEach(d => {
+        const div = document.createElement('div');
+        div.className = 'dim-desc';
+        div.innerHTML = `<strong>${d} - ${(DIMS_INFO[d] && DIMS_INFO[d].name) ? DIMS_INFO[d].name : d}</strong>: ${normed[d]}
+          <div><em>Visok skor:</em> ${(DIMS_INFO[d] && DIMS_INFO[d].high) ? DIMS_INFO[d].high : ''}</div>
+          <div><em>Nizak skor:</em> ${(DIMS_INFO[d] && DIMS_INFO[d].low) ? DIMS_INFO[d].low : ''}</div>`;
+        detailsDiv.appendChild(div);
+      });
+
+      detailsDiv.innerHTML += `<div class="best-card"><h2>Najsličniji si: ${best.name}</h2><p>${best.description ? best.description : ''}</p>${best.wiki ? `<p><a href="${best.wiki}" target="_blank" rel="noopener">Pročitaj više na Wikipediji →</a></p>` : ''}</div>`;
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+
+    document.getElementById('resetBtn').addEventListener('click', ()=>{
+      form.reset();
+      const ctx = document.getElementById('compassCanvas').getContext('2d');
+      ctx.clearRect(0,0,400,400);
+      legendDiv.innerHTML = "";
+      detailsDiv.innerHTML = '<p class="muted small">Nakon slanja testa, ovde će biti prikazan kompas dijagram, tvoji skorovi i najbliža istorijska ličnost.</p>';
+      window.scrollTo({top:0,behavior:'smooth'});
     });
   </script>
 </body>
