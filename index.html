@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="sr">
 <head>
@@ -46,7 +47,7 @@
 <body>
   <div class="wrap">
     <header>
-      <img src="recrewty-logo-white.png" alt="Recrewty logo"/>
+      <img src="recrewty-logo-white.webp" alt="Recrewty logo"/>
       <h1>The 4C Culture Compass™ by Recrewty</h1>
     </header>
 
@@ -75,15 +76,15 @@
   </div>
   <footer>
     <a href="https://recrewty.com" target="_blank" rel="noopener">
-      <img src="recrewty-logo-white.png" alt="Recrewty logo"/> The 4C Culture Compass™ by Recrewty
+      <img src="recrewty-logo-white.webp" alt="Recrewty logo"/> The 4C Culture Compass™ by Recrewty
     </a>
   </footer>
 
   <script>
-    const ITEMS = __ITEMS__;
-    const NORMS = __NORMS__;
-    const FIGURES = __FIGURES__;
-    const DIMS_INFO = __DIMS__;
+    const ITEMS = [{"id": 1, "text": "Potrebna su mi precizna uputstva kako bih tačno znao šta se od mene očekuje                                         ", "dim": "C1"}, {"id": 2, "text": "Pojedinac treba da stavi interes grupe ispred svog                                                                  ", "dim": "C3"}, {"id": 3, "text": "Smatram da je pažljivo upravljanje novcem veoma važno                                                               ", "dim": "C4"}, {"id": 4, "text": "Moj primarni cilj u donošenju odluka je da postignem najbolje rezultate  čak i ako to znači da zasenim ideje drugih ", "dim": "C2"}, {"id": 5, "text": "Nije poželjno da rukovodioci često traže mišljenje zaposlenih na nižim pozicijama                                   ", "dim": "C2"}, {"id": 6, "text": "Pridržavanje pravila i procedura je ključno za dobar rad                                                            ", "dim": "C1"}, {"id": 7, "text": "Čak i u teškim vremenima  ljudi bi trebalo da ostanu lojalni svojoj grupi                                           ", "dim": "C3"}, {"id": 8, "text": "Za mene je važno da istrajem i kada se suočavam sa otporom                                                          ", "dim": "C4"}, {"id": 9, "text": "Kako se ljudi osjećaju u procesu donošenja odluka nije važan faktor                                                 ", "dim": "C2"}, {"id": 10, "text": "Pravila i propisi mi pomažu da znam šta se od mene očekuje                                                          ", "dim": "C1"}, {"id": 11, "text": "Važnije je da grupa napreduje nego da se ističu pojedinci                                                           ", "dim": "C3"}, {"id": 12, "text": "Nije mi bitan uticaj odluka na osjećanja i odnose ljudi                                                             ", "dim": "C2"}, {"id": 13, "text": "Standardizovane procedure olakšavaju obavljanje posla                                                               ", "dim": "C1"}, {"id": 14, "text": "Bolje je kada uspije tim nego pojedinac                                                                             ", "dim": "C3"}, {"id": 15, "text": "Dugoročno planiranje mi je izuzetno značajno                                                                        ", "dim": "C4"}, {"id": 16, "text": "Zadovoljniji sam kada moje odluke dovedu do boljih rezultata od rezultata mojih kolega                              ", "dim": "C2"}, {"id": 17, "text": "Važne zadatke ne bi trebalo delegirati zaposlenima na nižim pozicijama                                              ", "dim": "C2"}, {"id": 18, "text": "Jasne procedure su ključne za uspješnu realizaciju zadataka                                                         ", "dim": "C1"}, {"id": 19, "text": "Prije nego što se posveti svojim ciljevima  pojedinac bi trebalo da razmisli o tome kako oni utiču na grupu         ", "dim": "C3"}, {"id": 20, "text": "Spreman sam da se odreknem zabave danas zarad budućeg uspjeha                                                       ", "dim": "C4"}, {"id": 21, "text": "Lojalnost prema grupi treba podsticati  čak i kada se kosi s ličnim ciljevima                                       ", "dim": "C3"}, {"id": 22, "text": "Naporan rad zarad uspjeha u budućnosti  za mene je važan                                                            ", "dim": "C4"}];
+    const NORMS = {"C1": {"5": 0.0, "6": 0.0, "7": 0.0, "8": 0.0, "9": 0.0, "10": 6.520723544399269, "11": 15.13698374285922, "12": 22.77921674919608, "13": 28.0885369285841, "14": 32.42048393045673, "15": 37.28490533241466, "16": 42.95417189705258, "17": 47.90274213347555, "18": 52.62011311538172, "19": 57.94885042292888, "20": 63.58622234266424, "21": 69.63874229853081, "22": 75.42545102329012, "23": 81.4767938656201, "24": 88.19958030249376, "25": 100.0}, "C2": {"6": 0.0, "7": 8.000704098685949, "8": 15.2888536041387, "9": 21.33680960447523, "10": 26.07540534036021, "11": 30.29035317157859, "12": 34.83563823299427, "13": 40.04391583492738, "14": 44.69152507982457, "15": 48.58608581707873, "16": 52.57750045543178, "17": 56.48247522079518, "18": 60.06251448332315, "19": 63.89191273387608, "20": 67.59528847966027, "21": 71.42857142857143, "22": 76.19047619047619, "23": 80.95238095238095, "24": 85.71428571428572, "25": 90.47619047619048, "26": 95.23809523809524, "27": 100.0, "28": 100.0, "29": 100.0, "30": 100.0}, "C3": {"6": 0.0, "7": 5.714537118960193, "8": 14.52653668726173, "9": 20.85961304571558, "10": 25.00225766012873, "11": 27.8356260484174, "12": 30.94922715177008, "13": 33.84308506161179, "14": 36.57778851405745, "15": 40.19013002681073, "16": 44.07572601771861, "17": 48.11948362836824, "18": 52.75639437003009, "19": 56.56028771984553, "20": 59.10036757159533, "21": 62.30395658795592, "22": 66.2909909523823, "23": 69.6620749828591, "24": 73.04413279088406, "25": 76.26835174013918, "26": 79.50741759027524, "27": 83.35988138916036, "28": 87.13842507845501, "29": 91.85249052560833, "30": 100.0}, "C4": {"5": 0.0, "6": 0.0, "7": 0.0, "8": 0.0, "9": 0.0, "10": 0.0, "11": 0.0, "12": 8.69206654482118, "13": 17.11279599732478, "14": 24.20027116580127, "15": 30.3046936486103, "16": 36.38265938445812, "17": 42.55135948786221, "18": 48.85995507136091, "19": 55.27024636326704, "20": 61.78339534546755, "21": 68.37696389785044, "22": 74.80047950315051, "23": 81.34042302389727, "24": 88.72142921702103, "25": 100.0}};
+    const FIGURES = [{"name": "Queen Victoria", "description": "", "wiki": "", "profile": {"C1": 70.0, "C2": 50.0, "C3": 50.0, "C4": 50.0}}, {"name": "Napoleon", "description": "", "wiki": "", "profile": {"C1": 50.0, "C2": 70.0, "C3": 50.0, "C4": 50.0}}, {"name": "Marie Therese", "description": "", "wiki": "", "profile": {"C1": 50.0, "C2": 50.0, "C3": 70.0, "C4": 50.0}}, {"name": "Franklin Roosevelt", "description": "", "wiki": "", "profile": {"C1": 50.0, "C2": 50.0, "C3": 50.0, "C4": 70.0}}, {"name": "Winston Churchill", "description": "", "wiki": "", "profile": {"C1": 20.0, "C2": 50.0, "C3": 50.0, "C4": 50.0}}, {"name": "Pericles", "description": "", "wiki": "", "profile": {"C1": 50.0, "C2": 20.0, "C3": 50.0, "C4": 50.0}}, {"name": "John Kennedy", "description": "", "wiki": "", "profile": {"C1": 50.0, "C2": 50.0, "C3": 20.0, "C4": 50.0}}, {"name": "James 2", "description": "", "wiki": "", "profile": {"C1": 50.0, "C2": 50.0, "C3": 50.0, "C4": 20.0}}];
+    const DIMS_INFO = {};
 
     const qWrap = document.getElementById('questions');
     function renderQuestions(){
@@ -149,6 +150,7 @@
       const dims = ['C1','C2','C3','C4'];
       const angles = [ -Math.PI/2, 0, Math.PI/2, Math.PI ];
 
+      // Osi
       ctx.strokeStyle = '#999';
       dims.forEach((d,i)=>{
         const x = centerX + radius*Math.cos(angles[i]);
@@ -182,6 +184,7 @@
     }
 
     const form = document.getElementById('quiz');
+    const out = document.getElementById('output');
     const legendDiv = document.getElementById('legend');
     const detailsDiv = document.getElementById('details');
 
